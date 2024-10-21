@@ -31,14 +31,17 @@
                     <?php
                     $htmls = scandir("./profile", SCANDIR_SORT_ASCENDING);
                     $count = 0;
-                    foreach( $htmls as $html ) {
-                        if( $html == "." || $html == ".." ) continue;
-                        if( substr($html, -5) == ".html" ) {
+                    foreach($htmls as $html) {
+                        if($html == "." || $html == "..") continue;
+                        if(substr($html, -5) == ".html") {
                             if($count % 10 == 0 && $count != 0) {
                                 echo "</tr><tr>";
                             }
                             $name = substr($html, 0, -5);
-                            echo "<td><a href='profile/$html'>$name</a></td>";
+                            $imagePath = "./img/$name.jpg";
+                            $imageTag = file_exists($imagePath) ? "<img src='$imagePath' alt='$name'>" : "";
+
+                            echo "<td><a href='profile/$html'>$name</a><br>$imageTag</td>";
                             $count++;
                         }
                     }
