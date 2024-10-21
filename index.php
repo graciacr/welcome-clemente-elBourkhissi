@@ -52,7 +52,7 @@
         </section>
     </main>
     <footer>
-        <p>Proyecto clemente-elBourkhissi</p>
+        <p>Proyecto Welcome clemente-elBourkhissi</p>
     </footer>
 </body>
 </html>
