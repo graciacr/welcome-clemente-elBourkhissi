@@ -29,7 +29,7 @@
             <table>
                 <tr>
                     <?php
-                    $htmls = scandir("./profile", SCANDIR_SORT_ASCENDING);
+                    $htmls = scandir("./profiles", SCANDIR_SORT_ASCENDING);
                     $count = 0;
                     foreach($htmls as $html) {
                         if($html == "." || $html == "..") continue;
@@ -38,10 +38,10 @@
                                 echo "</tr><tr>";
                             }
                             $name = substr($html, 0, -5);
-                            $imagePath = "./img/$name.jpg";
+                            $imagePath = "./images/$name.jpg";
                             $imageTag = file_exists($imagePath) ? "<img src='$imagePath' alt='$name'>" : "";
 
-                            echo "<td><a href='profile/$html'>$name</a><br>$imageTag</td>";
+                            echo "<td><a href='profiles/$html'>$name</a><br>$imageTag</td>";
                             $count++;
                         }
                     }
