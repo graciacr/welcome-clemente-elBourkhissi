@@ -27,35 +27,54 @@
     <main>
         <section>
             <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Perfil HTML</th>
-                        <th>Imagen</th>
-                        <th>Descripción</th>
-                        <th>Contacto</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Perfil HTML</th>
+                    <th>Imagen</th>
+                    <th>Descripción</th>
+                    <th>Contacto</th>
+                </tr>
+                <tr>
                     <?php
                     $profileDir = 'profiles/';
                     $imageDir = 'images/';
-                    $profiles = glob($profileDir . '*.html'); // Busca todos los archivos HTML en "profiles/"
-                    
+                    $profiles = glob($profileDir . '*.html');
+                    $columnCount = 0;
+
                     foreach ($profiles as $profile) {
-                        $fileName = basename($profile, '.html'); // Obtiene el nombre base sin la extensión
+                        $fileName = basename($profile, '.html'); // Obtiene el nombre del archivo sin extensión
                         $imagePath = $imageDir . $fileName . '.jpg'; // Ruta de la imagen correspondiente
-                    
-                        echo "<td><a href='$profile'>$fileName</a><br>";
-                        if (file_exists($imagePath)) {
-                            echo "<img src='$imagePath' alt='Imagen de $fileName'>";
-                        } else {
-                            echo "No hay imagen";
+                        
+                        // Abrimos una nueva fila cada 5 columnas
+                        if ($columnCount % 5 == 0 && $columnCount != 0) {
+                            echo "</tr><tr>";
                         }
+
+                        echo "<td>";
+                        echo "<strong>$fileName</strong><br>"; // Nombre del alumno
+                        echo "<a href='$profile'>Ver Perfil</a><br>"; // Enlace al perfil HTML
+                        
+                        // Mostramos la imagen si existe
+                        if (file_exists($imagePath)) {
+                            echo "<img src='$imagePath' alt='Imagen de $fileName'><br>";
+                        } else {
+                            echo "No hay imagen<br>";
+                        }
+
+                        echo "Descripción de $fileName<br>"; // Puedes personalizar este texto
+                        echo "Contacto de $fileName"; // Puedes personalizar este texto
                         echo "</td>";
+                        
+                        $columnCount++;
+                    }
+
+                    // Añadimos celdas vacías si el último row tiene menos de 5 elementos
+                    while ($columnCount % 5 != 0) {
+                        echo "<td></td>";
+                        $columnCount++;
                     }
                     ?>
-                </tbody>
+                </tr>
             </table>
         </section>
     </main>
