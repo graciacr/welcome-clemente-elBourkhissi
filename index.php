@@ -54,7 +54,7 @@
                         }
                         echo "</td>";
                     }
-
+                    ?>
                 </tbody>
             </table>
         </section>
