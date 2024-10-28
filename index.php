@@ -32,33 +32,47 @@
                     <th>Perfil HTML</th>
                     <th>Imagen</th>
                 </tr>
-                <?php
-    $imgs = scandir("./img",SCANDIR_SORT_ASCENDING);
-    $contador = 0;
-    echo "<tr>\n";
-    foreach( $imgs as $img ) {
-        if( $img=="." || $img==".." ){
-            continue;
-        }
-        if( substr($img,-3)=="jpg" or substr($img,-3)=="png"){
-            $name = substr($img,0,-4);
-        }else if (substr($img,-4)=="jpeg") {
-            $name = substr($img,0,-5);
-        }
-        echo "<td>\n";
-        echo "<a href='profile/$name.html'>";
-        echo "<img src='img/$img' width='130' alt='FotoPerfil'></a>\n<a>";
-        echo "<a href='profile/$name.html'>";
-        echo $name."</a>\n";
-        echo "</td>\n\n";
-        $contador +=1;
-        if ( $contador ==3){
-            echo "</tr>\n\n <tr>\n";
-            $contador = 0;
-        }
+                <tr>
+                    <?php
+                    $profileDir = 'profiles/';
+                    $imageDir = 'images/';
+                    $profiles = glob($profileDir . '*.html');
+                    $columnCount = 0;
 
-    }
-    ?>
+                    foreach ($profiles as $profile) {
+                        $fileName = basename($profile, '.html'); // Obtiene el nombre del archivo sin extensión
+                        $imagePath = $imageDir . $fileName . '.jpg'; // Ruta de la imagen correspondiente
+                        
+                        // Abrimos una nueva fila cada 5 columnas
+                        if ($columnCount % 5 == 0 && $columnCount != 0) {
+                            echo "</tr><tr>";
+                        }
+
+                        echo "<td>";
+                        echo "<strong>$fileName</strong><br>"; // Nombre del alumno
+                        echo "<a href='$profile'>Ver Perfil</a><br>"; // Enlace al perfil HTML
+                        
+                        // Mostramos la imagen si existe
+                        if (file_exists($imagePath)) {
+                            echo "<img src='$imagePath' alt='Imagen de $fileName'><br>";
+                        } else {
+                            echo "No hay imagen<br>";
+                        }
+
+                        echo "Descripción de $fileName<br>"; // Puedes personalizar este texto
+                        echo "Contacto de $fileName"; // Puedes personalizar este texto
+                        echo "</td>";
+                        
+                        $columnCount++;
+                    }
+
+                    // Añadimos celdas vacías si el último row tiene menos de 5 elementos
+                    while ($columnCount % 5 != 0) {
+                        echo "<td></td>";
+                        $columnCount++;
+                    }
+                    ?>
+                </tr>
             </table>
         </section>
     </main>
