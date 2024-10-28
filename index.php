@@ -33,26 +33,32 @@
                     <th>Imagen</th>
                 </tr>
                 <?php
-                $profileDir = 'profiles/';
-                $imageDir = 'images/';
-                
-                // Obtenemos todos los archivos HTML de la carpeta de perfiles
-                $profiles = glob($profileDir . '*.html');
+    $imgs = scandir("./img",SCANDIR_SORT_ASCENDING);
+    $contador = 0;
+    echo "<tr>\n";
+    foreach( $imgs as $img ) {
+        if( $img=="." || $img==".." ){
+            continue;
+        }
+        if( substr($img,-3)=="jpg" or substr($img,-3)=="png"){
+            $name = substr($img,0,-4);
+        }else if (substr($img,-4)=="jpeg") {
+            $name = substr($img,0,-5);
+        }
+        echo "<td>\n";
+        echo "<a href='profile/$name.html'>";
+        echo "<img src='img/$img' width='130' alt='FotoPerfil'></a>\n<a>";
+        echo "<a href='profile/$name.html'>";
+        echo $name."</a>\n";
+        echo "</td>\n\n";
+        $contador +=1;
+        if ( $contador ==3){
+            echo "</tr>\n\n <tr>\n";
+            $contador = 0;
+        }
 
-                foreach ($profiles as $profile) {
-                    $fileName = basename($profile, '.html'); // Nombre del archivo sin extensión
-                    $imagePath = $imageDir . $fileName . '.jpg'; // Ruta de la imagen correspondiente
-
-                    // Verificamos si existe una imagen con el mismo nombre que el perfil
-                    if (file_exists($imagePath)) {
-                        echo "<tr>";
-                        echo "<td><strong>$fileName</strong></td>"; // Nombre del alumno
-                        echo "<td><a href='$profile'>Ver Perfil</a></td>"; // Enlace al perfil HTML
-                        echo "<td><img src='$imagePath' alt='Imagen de $fileName'></td>"; // Imagen
-                        echo "</tr>";
-                    }
-                }
-                ?>
+    }
+    ?>
             </table>
         </section>
     </main>
