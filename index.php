@@ -55,11 +55,6 @@
                         echo "</td>";
                     }
 
-                        echo "<td>Descripción de $fileName</td>";
-                        echo "<td>Contacto de $fileName</td>";
-                        echo '</tr>';
-                    }
-                    ?>
                 </tbody>
             </table>
         </section>
