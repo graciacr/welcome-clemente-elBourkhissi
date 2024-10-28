@@ -22,7 +22,7 @@
 </head>
 <body>
     <header>
-        <h1>Welcome Garcia-Lopez</h1>
+        <h1>Projecte Welcome 1</h1>
     </header>
     <main>
         <section>
@@ -40,21 +40,20 @@
                     <?php
                     $profileDir = 'profiles/';
                     $imageDir = 'images/';
-                    $profiles = glob($profileDir . '*.html');
-
+                    $profiles = glob($profileDir . '*.html'); // Busca todos los archivos HTML en "profiles/"
+                    
                     foreach ($profiles as $profile) {
-                        $fileName = basename($profile, '.html');
-                        $imagePath = $imageDir . $fileName . '.jpg';
-
-                        echo '<tr>';
-                        echo "<td>$fileName</td>";
-                        echo "<td><a href='$profile'>Ver Perfil</a></td>";
-
+                        $fileName = basename($profile, '.html'); // Obtiene el nombre base sin la extensión
+                        $imagePath = $imageDir . $fileName . '.jpg'; // Ruta de la imagen correspondiente
+                    
+                        echo "<td><a href='$profile'>$fileName</a><br>";
                         if (file_exists($imagePath)) {
-                            echo "<td><img src='$imagePath' alt='Imagen de $fileName'></td>";
+                            echo "<img src='$imagePath' alt='Imagen de $fileName'>";
                         } else {
-                            echo "<td>No hay imagen</td>";
+                            echo "No hay imagen";
                         }
+                        echo "</td>";
+                    }
 
                         echo "<td>Descripción de $fileName</td>";
                         echo "<td>Contacto de $fileName</td>";
@@ -66,7 +65,7 @@
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 Welcome Garcia-Lopez</p>
+        <p>&copy; 2024 Proyecto Welcome clemente-elBourkhissi</p>
     </footer>
 </body>
 </html>
