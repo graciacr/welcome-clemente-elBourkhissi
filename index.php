@@ -1,61 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Alumnos</title>
+    <title>Welcome Garcia-Lopez</title>
     <style>
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        td {
-            border: 1px solid black;
+        th, td {
             padding: 10px;
+            border: 1px solid #ddd;
             text-align: center;
         }
         img {
-            width: 100px;
+            max-width: 100px;
             height: auto;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Projecte Welcome 1</h1>
+        <h1>Welcome Garcia-Lopez</h1>
     </header>
     <main>
         <section>
             <table>
-                <tr>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Perfil HTML</th>
+                        <th>Imagen</th>
+                        <th>Descripción</th>
+                        <th>Contacto</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <?php
-                    $htmls = scandir("./profile", SCANDIR_SORT_ASCENDING);
-                    $count = 0;
-                    foreach($htmls as $html) {
-                        if($html == "." || $html == "..") continue;
-                        if(substr($html, -5) == ".html") {
-                            if($count % 10 == 0 && $count != 0) {
-                                echo "</tr><tr>";
-                            }
-                            $name = substr($html, 0, -5);
-                            $imagePath = "./img/$name.jpg";
-                            $imageTag = file_exists($imagePath) ? "<img src='$imagePath' alt='$name'>" : "";
+                    $profileDir = 'profiles/';
+                    $imageDir = 'images/';
+                    $profiles = glob($profileDir . '*.html');
 
-                            echo "<td><a href='profile/$html'>$name</a><br>$imageTag</td>";
-                            $count++;
+                    foreach ($profiles as $profile) {
+                        $fileName = basename($profile, '.html');
+                        $imagePath = $imageDir . $fileName . '.jpg';
+
+                        echo '<tr>';
+                        echo "<td>$fileName</td>";
+                        echo "<td><a href='$profile'>Ver Perfil</a></td>";
+
+                        if (file_exists($imagePath)) {
+                            echo "<td><img src='$imagePath' alt='Imagen de $fileName'></td>";
+                        } else {
+                            echo "<td>No hay imagen</td>";
                         }
-                    }
-                    while ($count % 10 != 0) {
-                        echo "<td></td>";
-                        $count++;
+
+                        echo "<td>Descripción de $fileName</td>";
+                        echo "<td>Contacto de $fileName</td>";
+                        echo '</tr>';
                     }
                     ?>
-                </tr>
+                </tbody>
             </table>
         </section>
     </main>
     <footer>
-        <p>Proyecto Welcome clemente-elBourkhissi</p>
+        <p>&copy; 2024 Welcome Garcia-Lopez</p>
     </footer>
 </body>
 </html>
